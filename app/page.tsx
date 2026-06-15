@@ -1,65 +1,85 @@
-import Image from "next/image";
+import { Suspense } from "react";
+import { BookOpen, Mic, Swords, FolderOpen, Scale } from "lucide-react";
+import AccessForm from "@/components/AccessForm";
 
-export default function Home() {
+const FEATURES = [
+  {
+    icon: BookOpen,
+    title: "Build a Case",
+    text: "Step-by-step case structures for LD, Public Forum, and World Schools, with real example cases.",
+  },
+  {
+    icon: Swords,
+    title: "Master Rebuttals",
+    text: "Learn line-by-line refutation, weighing, and collapsing with videos and worked examples.",
+  },
+  {
+    icon: Scale,
+    title: "Lay & Progressive",
+    text: "Two tracks: persuade a parent judge, or go deep on Ks, theory, and circuit-style debate.",
+  },
+  {
+    icon: FolderOpen,
+    title: "File Library",
+    text: "Download real prep — cases, kritik files, and evidence shared by your partner coach.",
+  },
+  {
+    icon: Mic,
+    title: "AI Practice Judge",
+    text: "Record a practice round and get a full ballot — decision, RFD, speaker points, and drills — judged on NSDA standards.",
+  },
+];
+
+export default function LandingPage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="flex-1">
+      <div className="bg-ink-950 text-white">
+        <div className="mx-auto max-w-5xl px-6 py-16 sm:py-24">
+          <p className="text-gold-400 font-semibold tracking-widest uppercase text-sm">
+            Inaya Debate Partnership
           </p>
+          <h1 className="font-display mt-4 text-4xl sm:text-6xl font-bold leading-tight">
+            Your debate coach,
+            <br />
+            <span className="text-gold-300">even when we&apos;re not there.</span>
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg text-ink-100">
+            A complete debate classroom for our partner schools: learn to build cases, give
+            rebuttals, explore lay and progressive styles, use shared prep files, and get a
+            full AI-judged ballot on your practice rounds.
+          </p>
+
+          <div className="mt-10 max-w-md">
+            <Suspense>
+              <AccessForm />
+            </Suspense>
+            <p className="mt-3 text-sm text-ink-300">
+              Your school&apos;s access code was provided by your partner coach. Lost it? Ask
+              your club sponsor.
+            </p>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </div>
+
+      <div className="mx-auto max-w-5xl px-6 py-14">
+        <h2 className="font-display text-2xl font-bold text-ink-900">What&apos;s inside</h2>
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {FEATURES.map((f) => (
+            <div
+              key={f.title}
+              className="rounded-xl border border-ink-100 bg-white p-6 shadow-sm"
+            >
+              <f.icon className="h-7 w-7 text-gold-600" />
+              <h3 className="mt-3 font-semibold text-ink-900">{f.title}</h3>
+              <p className="mt-1 text-sm text-ink-700">{f.text}</p>
+            </div>
+          ))}
         </div>
-      </main>
-    </div>
+      </div>
+
+      <footer className="border-t border-ink-100 py-6 text-center text-sm text-ink-400">
+        Inaya Debate Partnership · Bringing competitive debate to every school
+      </footer>
+    </main>
   );
 }
