@@ -1,11 +1,16 @@
+import { cookies } from "next/headers";
 import { listResources, publicFileUrl } from "@/lib/supabase";
 import { SectionHeader } from "@/components/SectionView";
 import LibraryBrowser from "@/components/LibraryBrowser";
+import { EVENT_COOKIE, DebateEvent } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 
 export default async function LibraryPage() {
-  const resources = await listResources("library");
+  const store = await cookies();
+  const event = store.get(EVENT_COOKIE)?.value as DebateEvent | undefined;
+  const all = await listResources("library");
+  const resources = all.filter((r) => r.debate_format === "all" || !event || r.debate_format === event);
   const files = resources.map((r) => ({
     id: r.id,
     title: r.title,

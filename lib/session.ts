@@ -68,3 +68,5 @@ export interface AdminSession {
 
 export const SCHOOL_COOKIE = "debate_school";
 export const ADMIN_COOKIE = "debate_admin";
+export const EVENT_COOKIE = "debate_event";
+export type DebateEvent = "LD" | "PF";

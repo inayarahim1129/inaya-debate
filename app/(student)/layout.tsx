@@ -1,15 +1,15 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { Gavel } from "lucide-react";
-import { verifySession, SCHOOL_COOKIE, SchoolSession } from "@/lib/session";
+import { verifySession, SCHOOL_COOKIE, EVENT_COOKIE, SchoolSession, DebateEvent } from "@/lib/session";
 import LogoutButton from "@/components/LogoutButton";
 
-const NAV = [
+const NAV: Array<{ href: string; label: string; events?: DebateEvent[] }> = [
   { href: "/home", label: "Home" },
   { href: "/case-construction", label: "Case Construction" },
   { href: "/rebuttals", label: "Rebuttals" },
-  { href: "/styles/lay-ld", label: "Lay LD" },
-  { href: "/styles/progressive", label: "Progressive" },
+  { href: "/styles/lay-ld", label: "Lay LD", events: ["LD"] },
+  { href: "/styles/progressive", label: "Progressive", events: ["LD"] },
   { href: "/library", label: "File Library" },
   { href: "/practice-round", label: "AI Practice Judge" },
 ];
@@ -17,6 +17,8 @@ const NAV = [
 export default async function StudentLayout({ children }: { children: React.ReactNode }) {
   const store = await cookies();
   const session = await verifySession<SchoolSession>(store.get(SCHOOL_COOKIE)?.value);
+  const event = store.get(EVENT_COOKIE)?.value as DebateEvent | undefined;
+  const nav = NAV.filter((item) => !item.events || (event && item.events.includes(event)));
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -27,7 +29,7 @@ export default async function StudentLayout({ children }: { children: React.Reac
             <span className="hidden sm:inline">Inaya Debate</span>
           </Link>
           <nav className="flex flex-1 items-center gap-1 overflow-x-auto text-sm">
-            {NAV.map((item) => (
+            {nav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}

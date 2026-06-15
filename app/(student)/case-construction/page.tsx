@@ -1,10 +1,15 @@
+import { cookies } from "next/headers";
 import { listResources } from "@/lib/supabase";
 import { SectionHeader, SectionView } from "@/components/SectionView";
+import { EVENT_COOKIE, DebateEvent } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 
 export default async function CaseConstructionPage() {
-  const resources = await listResources("case-construction");
+  const store = await cookies();
+  const event = store.get(EVENT_COOKIE)?.value as DebateEvent | undefined;
+  const all = await listResources("case-construction");
+  const resources = all.filter((r) => r.debate_format === "all" || !event || r.debate_format === event);
   return (
     <div>
       <SectionHeader
