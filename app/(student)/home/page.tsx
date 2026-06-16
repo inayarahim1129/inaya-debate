@@ -93,7 +93,7 @@ export default async function HomePage() {
 
         <div className="mt-8 grid gap-5 sm:grid-cols-2">
           {EVENTS.map((e) => (
-            <Link
+            <a
               key={e.key}
               href={`/api/event?format=${e.key}`}
               className="group rounded-2xl border border-ink-100 bg-white p-8 shadow-sm transition hover:border-gold-400 hover:shadow-md"
@@ -104,7 +104,7 @@ export default async function HomePage() {
               <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-ink-700">
                 Choose <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
               </span>
-            </Link>
+            </a>
           ))}
         </div>
       </div>
@@ -124,13 +124,13 @@ export default async function HomePage() {
             Welcome to debate practice.
           </h1>
         </div>
-        <Link
+        <a
           href="/api/event"
           className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-ink-100 bg-white px-3 py-2 text-sm font-semibold text-ink-700 shadow-sm transition hover:border-gold-400"
         >
           <Gavel className="h-4 w-4 text-gold-600" />
           {event === "LD" ? "Lincoln-Douglas" : "Public Forum"} · Switch
-        </Link>
+        </a>
       </div>
       <p className="mt-2 max-w-2xl text-ink-600">
         Work through the lessons in order if you&apos;re new — start with Case Construction,

@@ -18,7 +18,11 @@ export default async function StudentLayout({ children }: { children: React.Reac
   const store = await cookies();
   const session = await verifySession<SchoolSession>(store.get(SCHOOL_COOKIE)?.value);
   const event = store.get(EVENT_COOKIE)?.value as DebateEvent | undefined;
-  const nav = NAV.filter((item) => !item.events || (event && item.events.includes(event)));
+  // Until a student picks an event, only show Home — everything else lives
+  // inside the LD/PF section and appears after they choose.
+  const nav = event
+    ? NAV.filter((item) => !item.events || item.events.includes(event))
+    : NAV.filter((item) => item.href === "/home");
 
   return (
     <div className="flex min-h-screen flex-col">
