@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { BookOpen, Mic, Swords, FolderOpen, Scale, Zap, ArrowRight, Gavel, Users } from "lucide-react";
+import { BookOpen, Mic, Swords, FolderOpen, Scale, Zap, ArrowRight, Gavel, Users, Rocket } from "lucide-react";
 import { verifySession, SCHOOL_COOKIE, EVENT_COOKIE, SchoolSession, DebateEvent } from "@/lib/session";
 
 const TILES: Array<{
@@ -11,6 +11,12 @@ const TILES: Array<{
   featured?: boolean;
   events?: DebateEvent[];
 }> = [
+  {
+    href: "/get-started",
+    icon: Rocket,
+    title: "How to Get Started",
+    text: "New here? Register with NSDA/UIL/TFA, learn LD vs. PF, and find out how to enter your first tournament.",
+  },
   {
     href: "/case-construction",
     icon: BookOpen,
@@ -90,6 +96,23 @@ export default async function HomePage() {
           Choose your event to get lessons, practice tools, and a library tailored to it. You
           can switch anytime from the menu at the top.
         </p>
+
+        <Link
+          href="/get-started"
+          className="group mt-6 flex items-center gap-4 rounded-2xl border border-gold-300 bg-gold-300/10 p-5 transition hover:border-gold-400 hover:bg-gold-300/20"
+        >
+          <div className="rounded-lg bg-ink-900 p-2.5">
+            <Rocket className="h-5 w-5 text-gold-400" />
+          </div>
+          <div className="flex-1">
+            <h2 className="font-display text-lg font-bold text-ink-900">New to debate? Start here</h2>
+            <p className="text-sm text-ink-600">
+              How to register with NSDA, UIL &amp; TFA, the difference between LD and PF, how to enter
+              tournaments, and why debate matters.
+            </p>
+          </div>
+          <ArrowRight className="h-5 w-5 shrink-0 text-ink-700 transition group-hover:translate-x-0.5" />
+        </Link>
 
         <div className="mt-8 grid gap-5 sm:grid-cols-2">
           {EVENTS.map((e) => (

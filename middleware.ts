@@ -3,6 +3,7 @@ import { verifySession, SCHOOL_COOKIE, ADMIN_COOKIE, SchoolSession, AdminSession
 
 const STUDENT_PREFIXES = [
   "/home",
+  "/get-started",
   "/case-construction",
   "/rebuttals",
   "/styles",
@@ -40,6 +41,8 @@ export async function middleware(req: NextRequest) {
 export const config = {
   matcher: [
     "/home/:path*",
+    "/get-started/:path*",
+    "/get-started",
     "/case-construction/:path*",
     "/rebuttals/:path*",
     "/styles/:path*",

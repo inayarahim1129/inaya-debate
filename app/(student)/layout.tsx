@@ -6,6 +6,7 @@ import LogoutButton from "@/components/LogoutButton";
 
 const NAV: Array<{ href: string; label: string; events?: DebateEvent[] }> = [
   { href: "/home", label: "Home" },
+  { href: "/get-started", label: "Get Started" },
   { href: "/case-construction", label: "Case Construction" },
   { href: "/rebuttals", label: "Rebuttals" },
   { href: "/styles/lay-ld", label: "Lay LD", events: ["LD"] },
@@ -22,7 +23,7 @@ export default async function StudentLayout({ children }: { children: React.Reac
   // inside the LD/PF section and appears after they choose.
   const nav = event
     ? NAV.filter((item) => !item.events || item.events.includes(event))
-    : NAV.filter((item) => item.href === "/home");
+    : NAV.filter((item) => item.href === "/home" || item.href === "/get-started");
 
   return (
     <div className="flex min-h-screen flex-col">
